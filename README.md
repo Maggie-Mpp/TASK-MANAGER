@@ -1,14 +1,14 @@
-Task Reminder Application
+#Task Reminder Application
 
 The Task Reminder application is a web-based task management system that allows users to create, manage, and track their tasks with additional features such as reminders, priorities, due dates, and task categories.
 
-Features
-User Management:
+#Features
+#User Management:
   User registration
   User login/logout
   User roles and permissions (admin and regular user)
   Admin user can perform administrative tasks
-Task Management:
+#Task Management:
   Create, update, and delete tasks
   Set task priorities (low, medium, high)
   Set due dates for tasks
