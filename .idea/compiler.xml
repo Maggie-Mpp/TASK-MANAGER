@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="TASK-REMINDER" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MVC" target="1.8" />
+      <module name="MVC-BOOK" target="1.8" />
+      <module name="MVC-SEC" target="1.8" />
+      <module name="MVC-VAL" target="1.8" />
+      <module name="W3D3-Boot" target="17" />
+      <module name="W3D3-REST" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="MVC" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="MVC-BOOK" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="MVC-SEC" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="MVC-VAL" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="TASK-REMINDER" options="-parameters" />
+      <module name="W3D3-Boot" options="-parameters" />
+      <module name="W3D3-REST" options="-parameters" />
+    </option>
+  </component>
+</project>
