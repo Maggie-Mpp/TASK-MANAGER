@@ -22,11 +22,13 @@ public class TaskController {
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
+
     @GetMapping
     public List<Task> getAllTasks() {
         List<Task> tasks = taskService.getAllTasks();
         return tasks;
     }
+
     @GetMapping("/category/{categoryName}")
     public ResponseEntity<List<Task>> getTasksByCategory(@PathVariable String categoryName) {
         Category category =Category.WORK;
@@ -41,11 +43,13 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
+
     @GetMapping("/due-date/{dueDate}")
     public ResponseEntity<List<Task>> getTasksByDueDate(@PathVariable Date dueDate) {
         List<Task> tasks = taskService.getTasksByDueDate(dueDate);
         return ResponseEntity.ok(tasks);
     }
+
 
     @GetMapping("/priority/{priority}")
     public ResponseEntity<List<Task>> getTasksByPriority(@PathVariable Priority priority) {
@@ -53,10 +57,12 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
+
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable("id") Long taskId) {
         return taskService.getTaskById(taskId);
     }
+
 
 
     @PostMapping
@@ -65,10 +71,12 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
+
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable("id") Long taskId, @RequestBody Task task) {
         return taskService.updateTask(taskId, task);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable("id") Long taskId) {

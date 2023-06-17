@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -21,7 +22,7 @@ public class UserService {
     }
     public User createUser(User user) {
         Role userRole = roleRepository.findByName("USER"); // Assuming "USER" is the regular user role
-        user.addRole(userRole);
+        user.setRoles((Set<Role>) user);
         return userRepository.save(user);
     }
     public List<User> getUsersByRole(String roleName) {
