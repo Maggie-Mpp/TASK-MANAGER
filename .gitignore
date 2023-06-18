@@ -1,5 +1,11 @@
 # Default ignored files
+.idea/
+target/
 /shelf/
 /.idea/workspace.xml
-target/
-/.idea
+/.idea/vcs.xml
+
+/.idea/
+
+/target/classes/application.properties
+target/classes/*
