@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="TASK-MANAGER" />
         <module name="TASK-REMINDER" />
       </profile>
     </annotationProcessing>
@@ -25,6 +26,7 @@
       <module name="MVC-BOOK" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
       <module name="MVC-SEC" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
       <module name="MVC-VAL" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="TASK-MANAGER" options="-parameters" />
       <module name="TASK-REMINDER" options="-parameters" />
       <module name="W3D3-Boot" options="-parameters" />
       <module name="W3D3-REST" options="-parameters" />

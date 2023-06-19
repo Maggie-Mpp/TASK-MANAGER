@@ -1,5 +1,6 @@
 package cs544.Controller;
 
+import cs544.Domain.Task;
 import cs544.Domain.User;
 import cs544.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,10 @@ public class UserController {
     }
 
 
-
+    @GetMapping("/{id}/tasks")
+    public List<Task> getAllTaskByUserId(@PathVariable("id") Long userId){
+        return userService.getUserById(userId).getTasks();
+    }
     @PutMapping("/{id}")
     public User updateUser(@PathVariable("id") Long userId, @RequestBody User user) {
         return userService.updateUser(userId, user);

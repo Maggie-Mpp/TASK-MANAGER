@@ -1,5 +1,6 @@
 package cs544.Controller;
 
+import cs544.Domain.Reminder;
 import cs544.Domain.Task;
 import cs544.Other.Category;
 import cs544.Other.Priority;
@@ -71,7 +72,10 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
-
+    @GetMapping("/{taskId}/reminder")
+    public List<Reminder> getAllRemindersByTaskId(@PathVariable Long taskId){
+        return taskService.getTaskById(taskId).getReminders();
+    }
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable("id") Long taskId, @RequestBody Task task) {
         return taskService.updateTask(taskId, task);
