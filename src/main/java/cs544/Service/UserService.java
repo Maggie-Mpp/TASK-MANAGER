@@ -34,7 +34,9 @@ public class UserService implements UserDetailsService {
     public User createUser(User user) {
 //        String userRole = roleRepository.findByName("USER"); // Assuming "USER" is the regular user role
 //        user.setRoles((Set<String>) user);
-        user.addRole("USER");
+        if(user.getRoles().isEmpty()){
+            user.addRole("USER");
+        }
         user.setPassword(pwdEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -83,9 +85,11 @@ public class UserService implements UserDetailsService {
                     user.getRoles().stream().
                             map(role -> new SimpleGrantedAuthority(role)).
                             collect(Collectors.toList()));
-        System.out.println( "getUsername >>>> "+userDetails.getUsername());
 
-        return userDetails;
+        CustomUserDetails customUserDetails = new CustomUserDetails(userDetails);
+        customUserDetails.setId(user.getId());
+
+        return customUserDetails;
 
 
     }

@@ -40,4 +40,7 @@ public class ReminderService {
     public void deleteReminder(Long reminderId) {
         reminderRepository.deleteById(reminderId);
     }
+    public List<Reminder> getRemindersByTaskId(Long taskId){
+        return reminderRepository.findByTaskId(taskId);
+    }
 }

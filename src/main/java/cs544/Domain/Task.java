@@ -8,11 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -40,14 +40,20 @@ public class Task {
     private User user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Reminder> reminders;
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Reminder> reminders = new ArrayList<>();
 
+    public Task(String title, String description, Date dueDate, Priority priority, Category category) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.category = category;
+    }
 
-
-
-
-
+        void addReminder(Reminder r){
+                addReminder(r);
+        }
 //    public Task() {
 //    }
 //

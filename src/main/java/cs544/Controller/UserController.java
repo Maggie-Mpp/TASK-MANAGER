@@ -43,13 +43,10 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()));
-        System.out.println("isAuthenticated >>>>> " + auth.isAuthenticated());
+        System.out.println("isAuthenticated >>>>> " + auth.isAuthenticated()+"    Role: "+auth.getAuthorities());
+
 
         String token = "Bearer " + jwtUtil.generateToken(request.getUsername());
-
-
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Authorization", token);
 
         return ResponseEntity.ok()
                 .body(new UserResponse(token, "success"));

@@ -11,9 +11,10 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    List<Task> findByCategory(Category category);
+    List<Task> findByCategoryAndUserId(Category category,Long userId);
 
     List<Task> findByDueDate(Date dueDate);
 
     List<Task> findByPriority(Priority priority);
+    List<Task> findByUserId(Long id);
 }
