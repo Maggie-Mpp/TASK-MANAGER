@@ -66,8 +66,12 @@ public class SecurityConfig {
        http.csrf().disable()
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/users/add", "/users/login").permitAll()
+                                .requestMatchers("/users/login").permitAll()
+                                .requestMatchers("/users/add").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/tasks/alltasks").hasAnyAuthority("ADMIN")
                                 .anyRequest().authenticated()
+
+
                 )
                 .httpBasic()//application will use HTTP Basic authentication which is simple authentication scheme
                 // where the user's credentials (username and password) are sent in the "Authorization" header of the HTTP request.

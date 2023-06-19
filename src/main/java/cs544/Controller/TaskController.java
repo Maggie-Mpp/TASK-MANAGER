@@ -2,15 +2,19 @@ package cs544.Controller;
 
 import cs544.Domain.Reminder;
 import cs544.Domain.Task;
+import cs544.Domain.User;
 import cs544.Other.Category;
 import cs544.Other.Priority;
+import cs544.Service.CustomUserDetails;
 import cs544.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,26 +25,42 @@ public class TaskController {
 
     @Autowired
     public TaskController(TaskService taskService) {
+
         this.taskService = taskService;
     }
-
-    @GetMapping
+@PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/alltasks")
     public List<Task> getAllTasks() {
         List<Task> tasks = taskService.getAllTasks();
         return tasks;
     }
+    @GetMapping
+    public List<Task> getAllTasks(Authentication authentication) {
+        Long userId = ((CustomUserDetails) authentication.getPrincipal()).getId();
+        List<Task> tasks = taskService.getTasksByUserId(userId);
+        return tasks;
+    }
 
     @GetMapping("/category/{categoryName}")
-    public ResponseEntity<List<Task>> getTasksByCategory(@PathVariable String categoryName) {
-        Category category =Category.WORK;
-        switch (categoryName){
-            case  "work":category=Category.WORK;
-            case  "personal":category=Category.PERSONAL;
-            case  "shopping":category=Category.SHOPPING;
-            default:category=Category.WORK;
-
+    public ResponseEntity<List<Task>> getTasksByCategory(@PathVariable String categoryName,Authentication authentication) {
+        Category category;
+        switch (categoryName) {
+            case "work":
+                category = Category.WORK;
+                break;
+            case "personal":
+                category = Category.PERSONAL;
+                break;
+            case "shopping":
+                category = Category.SHOPPING;
+                break;
+            default:
+                category = Category.WORK;
+                break;
         }
-        List<Task> tasks = taskService.getTasksByCategory(category);
+        Long userId = ((CustomUserDetails) authentication.getPrincipal()).getId();
+
+        List<Task> tasks = taskService.getTasksByCategory(category,userId);
         return ResponseEntity.ok(tasks);
     }
 
@@ -66,9 +86,12 @@ public class TaskController {
 
 
 
-    @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    @PostMapping("/addTask")
+    public ResponseEntity<Task> createTask(@RequestBody Task task,Authentication authentication) {
+        User user = ((User) authentication.getPrincipal());
+
         Task createdTask = taskService.createTask(task);
+        createdTask.setUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 

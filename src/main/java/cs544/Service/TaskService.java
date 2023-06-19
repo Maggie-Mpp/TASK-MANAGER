@@ -29,8 +29,8 @@ public class TaskService {
         }
         return taskRepository.save(task);
     }
-    public List<Task> getTasksByCategory(Category categoryName) {
-        return taskRepository.findByCategory(categoryName);
+    public List<Task> getTasksByCategory(Category categoryName,Long userId) {
+        return taskRepository.findByCategoryAndUserId(categoryName,userId);
     }
 
     public List<Task> getTasksByDueDate(Date dueDate) {
@@ -46,7 +46,9 @@ public class TaskService {
     public Task getTaskById(Long taskId) {
         return taskRepository.findById(taskId).orElse(null);
     }
-
+    public List<Task> getTasksByUserId(Long id) {
+        return taskRepository.findByUserId(id);
+    }
 
 
     public Task updateTask(Long taskId, Task task) {
