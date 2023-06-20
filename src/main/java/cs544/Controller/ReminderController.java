@@ -6,6 +6,7 @@ import cs544.Domain.Task;
 import cs544.Service.ReminderService;
 import cs544.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -49,5 +50,10 @@ public class ReminderController {
     @DeleteMapping("/{id}")
     public void deleteReminder(@PathVariable("id") Long reminderId) {
         reminderService.deleteReminder(reminderId);
+    }
+    @PostMapping("/reminder/on")
+    public ResponseEntity<String> handleReminder() {
+        // Logic to handle the reminder when triggered
+        return ResponseEntity.ok("Reminder handled successfully.");
     }
 }
