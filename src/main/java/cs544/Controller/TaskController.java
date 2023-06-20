@@ -16,7 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/tasks")
@@ -88,10 +90,16 @@ public class TaskController {
 
     @PostMapping("/addTask")
     public ResponseEntity<Task> createTask(@RequestBody Task task,Authentication authentication) {
-        User user = ((User) authentication.getPrincipal());
-
+        CustomUserDetails user = ((CustomUserDetails) authentication.getPrincipal());
+        User user1 = new User();
+        user1.setId(user.getId());
+        Set<String> roles = new HashSet<>();
+        user.getAuthorities().forEach(aut->roles.add(aut.getAuthority()));
+        user1.setRoles(roles);
+        user1.setUsername(user.getUsername());
+        user1.setPassword(user.getPassword());
+        task.setUser(user1);
         Task createdTask = taskService.createTask(task);
-        createdTask.setUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
@@ -100,8 +108,19 @@ public class TaskController {
         return taskService.getTaskById(taskId).getReminders();
     }
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable("id") Long taskId, @RequestBody Task task) {
-        return taskService.updateTask(taskId, task);
+    public Task updateTask(@PathVariable("id") Long taskId, @RequestBody Task task,Authentication authentication) {
+
+        CustomUserDetails user = ((CustomUserDetails) authentication.getPrincipal());
+        User user1 = new User();
+        user1.setId(user.getId());
+        Set<String> roles = new HashSet<>();
+        user.getAuthorities().forEach(aut->roles.add(aut.getAuthority()));
+        user1.setRoles(roles);
+        user1.setUsername(user.getUsername());
+        user1.setPassword(user.getPassword());
+        task.setUser(user1);
+        Task updatedTask = taskService.updateTask(taskId, task);
+        return updatedTask;
     }
 
 

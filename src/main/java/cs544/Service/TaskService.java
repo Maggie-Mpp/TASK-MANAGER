@@ -56,8 +56,11 @@ public class TaskService {
         if (existingTask != null) {
             existingTask.setTitle(task.getTitle());
             existingTask.setDescription(task.getDescription());
+            existingTask.setDescription(task.getDescription());
+
             return taskRepository.save(existingTask);
         }
+
         return null;
     }
 
