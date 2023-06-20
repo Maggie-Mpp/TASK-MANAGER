@@ -91,13 +91,13 @@ public class UserController {
         userService.deleteUser(userId);
     }
 
-    @PostMapping("/Welcome")
-    public ResponseEntity<String> welcome(Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            return ResponseEntity.ok("Hello User: " + username);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
-        }
-    }
+//    @PostMapping("/Welcome")
+//    public ResponseEntity<String> welcome(Authentication authentication) {
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            String username = authentication.getName();
+//            return ResponseEntity.ok("Hello User: " + username);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+//        }
+//    }
 }
